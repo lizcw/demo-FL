@@ -37,10 +37,9 @@ while true; do
     esac
 done
 
-# --file is required
 [[ -n "$FILE" ]] || { echo "Error: --file is required" >&2; usage; }
 
-if [[ -n $RECOVER == 1 ]] then
+if [[ "${RECOVER:-0}" == "1" ]]; then
     echo "Recover dataset version"
 else
     echo "Create dataset version"
@@ -49,7 +48,7 @@ fi
 echo "Data file: $FILE"
 echo "Version: $VERSION"
 
-if [[ -n $RECOVER == 1 ]] then
+if [[ "${RECOVER:-0}" == "1" ]]; then
     # Recover a version from git
     git restore --source="$VERSION" -- "$FILE.dvc"
     # 3. Restore dataset from DVC 
@@ -82,3 +81,6 @@ else
 
     # Push to remote Git repo
     git push --follow-tags
+fi
+
+exit 0
