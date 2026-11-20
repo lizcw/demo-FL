@@ -1,0 +1,24 @@
+stages:
+
+  retrieve:
+    cmd: python scripts/01_retrieve.py --params params.yaml
+    deps:
+      - data/manifests/series.csv
+      - scripts/01_retrieve.py
+    outs:
+      - data/dicom/raw:
+          cache: false
+    params:
+      - retrieve
+      - preprocess
+
+  preprocess:
+    cmd: python scripts/02_preprocess.py --params params.yaml
+    deps:
+      - data/dicom/raw
+      - scripts/02_preprocess.py
+    outs:
+      - data/dicom/processed:
+          cache: false
+    params:
+      - preprocess

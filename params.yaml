@@ -1,0 +1,22 @@
+manifest:
+  json_file: data/orthanc/orthanc_scans.json
+  dicom_dir: data/dicom/raw
+  option: dicom-dir
+
+retrieve:
+  manifest_csv: data/manifests/series.csv
+  username: admin
+  password_file: secrets/orthanc_password.txt
+
+preprocess:
+  source_directory: data/dicom/downloads
+  destination_directory: data/dicom/raw
+  dataset_labels: dicom.csv
+  dataset_images: images
+
+train:
+  dicom_type_train: CT
+  test_size: 0.2
+  learning_rate: 0.001
+  epochs: 5
+  batch_size: 120
